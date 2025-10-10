@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import HomeSection from './components/HomeSection';
 import ServicesSection from './components/ServicesSection';
@@ -9,34 +9,25 @@ import Footer from './components/Footer';
 const App = () => {
   const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'services', 'pricing', 'contact'];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'home':
+        return <HomeSection />;
+      case 'services':
+        return <ServicesSection />;
+      case 'pricing':
+        return <PricingSection />;
+      case 'contact':
+        return <ContactSection />;
+      default:
+        return <HomeSection />;
+    }
+  };
 
   return (
-    <div className="min-h-screen">
-      <Navbar activeSection={activeSection} />
-      <HomeSection />
-      <ServicesSection />
-      <PricingSection />
-      <ContactSection />
+    <div className="min-h-screen flex flex-col">
+      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
+      <div className="flex-1 mt-16">{renderSection()}</div>
       <Footer />
     </div>
   );

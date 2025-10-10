@@ -1,9 +1,9 @@
 // components/Navbar.jsx
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import logo from '../assets/logo.png'; 
+import logo from '../assets/logo.png';
 
-const Navbar = ({ activeSection }) => {
+const Navbar = ({ activeSection, setActiveSection }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
@@ -13,14 +13,8 @@ const Navbar = ({ activeSection }) => {
     { id: 'contact', label: 'Contact Us' }
   ];
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+  const handleSectionChange = (sectionId) => {
+    setActiveSection(sectionId);
     setIsMenuOpen(false);
   };
 
@@ -28,19 +22,18 @@ const Navbar = ({ activeSection }) => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#070141] via-[#070141] to-purple-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          
           <div className="flex-shrink-0 flex items-center">
-            <img src={logo} alt="logo" className='w-8 h-8 md:w-10 md:h-10' />
+            <img src={logo} alt="logo" className="w-8 h-8 md:w-10 md:h-10" />
             <h1 className="text-white text-md md:text-lg font-bold ml-2">Vega AI IT</h1>
           </div>
 
-          {/* Desktop Navigation - Right aligned */}
+          {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleSectionChange(item.id)}
                   className={`px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 ${
                     activeSection === item.id
                       ? 'text-blue-400 border-b-2 border-blue-400'
@@ -71,7 +64,7 @@ const Navbar = ({ activeSection }) => {
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => handleSectionChange(item.id)}
                   className={`block px-4 py-3 text-base font-medium w-full text-left transition-all duration-300 rounded-lg ${
                     activeSection === item.id
                       ? 'text-blue-400 bg-blue-400/20'
