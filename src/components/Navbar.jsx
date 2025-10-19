@@ -24,7 +24,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
             <img src={logo} alt="logo" className="w-8 h-8 md:w-10 md:h-10" />
-            <h1 className="text-white text-md md:text-lg font-bold ml-2">Vega AI IT</h1>
+            <h1 className="text-white text-md md:text-lg font-bold ml-2">VEGA AI IT</h1>
           </div>
 
           {/* Desktop Navigation */}
